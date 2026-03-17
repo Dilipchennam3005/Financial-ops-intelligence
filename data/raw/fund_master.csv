@@ -1,0 +1,51 @@
+fund_id,fund_name,asset_class,region,currency,benchmark,fund_manager,inception_date,management_fee,target_volatility,initial_aum,status
+PAM0001,Pinnacle Equity Fund 01,Equity,Europe,GBP,MSCI EM,Michael Torres,2016-08-24,0.61,0.1276,874172213.93,Active
+PAM0002,Pinnacle Equity Fund 02,Equity,Emerging Markets,USD,MSCI EAFE,Michael Torres,2018-08-24,0.63,0.1438,1282007021.14,Active
+PAM0003,Pinnacle Equity Fund 03,Equity,US,USD,MSCI World,Priya Patel,2016-12-15,0.78,0.1261,1144561576.94,Closed
+PAM0004,Pinnacle Equity Fund 04,Equity,Europe,EUR,MSCI EAFE,Sarah Chen,2010-10-10,0.53,0.199,618988412.77,Active
+PAM0005,Pinnacle Equity Fund 05,Equity,US,EUR,Russell 1000,Michael Torres,2012-05-02,0.71,0.1327,317092867.37,Active
+PAM0006,Pinnacle Equity Fund 06,Equity,Asia-Pacific,GBP,MSCI World,Sarah Chen,2014-12-15,0.68,0.2061,992274488.73,Active
+PAM0007,Pinnacle Equity Fund 07,Equity,Asia-Pacific,GBP,Russell 1000,Michael Torres,2015-11-29,0.81,0.1714,1136122438.12,Active
+PAM0008,Pinnacle Equity Fund 08,Equity,Asia-Pacific,USD,MSCI EM,Lisa Nakamura,2017-10-03,0.69,0.2277,1509089592.54,Active
+PAM0009,Pinnacle Equity Fund 09,Equity,Emerging Markets,USD,MSCI EM,Lisa Nakamura,2017-12-18,0.55,0.2483,705682117.44,Active
+PAM0010,Pinnacle Equity Fund 10,Equity,Europe,USD,S&P 500,Priya Patel,2014-11-28,1.05,0.1988,557688226.76,Active
+PAM0011,Pinnacle Equity Fund 11,Equity,US,EUR,Russell 1000,Sarah Chen,2010-07-08,0.54,0.1604,1371938645.9,Active
+PAM0012,Pinnacle Equity Fund 12,Equity,Europe,USD,S&P 500,Priya Patel,2013-10-24,0.58,0.2127,1513291121.01,Active
+PAM0013,Pinnacle Equity Fund 13,Equity,Europe,USD,Russell 1000,Michael Torres,2011-04-19,0.81,0.1462,1210298955.63,Active
+PAM0014,Pinnacle Equity Fund 14,Equity,Asia-Pacific,GBP,MSCI EM,Priya Patel,2016-03-17,0.64,0.2426,1055666401.73,Active
+PAM0015,Pinnacle Equity Fund 15,Equity,Global,USD,MSCI EM,Sarah Chen,2014-01-08,0.57,0.1793,1450612879.47,Active
+PAM0016,Pinnacle Fixed Income Fund 01,Fixed Income,Europe,USD,ICE BofA Corp,James Whitfield,2013-07-30,0.39,0.0944,712288429.62,Active
+PAM0017,Pinnacle Fixed Income Fund 02,Fixed Income,Asia-Pacific,GBP,Bloomberg US Agg,Priya Patel,2011-08-31,0.25,0.0706,1024381662.73,Active
+PAM0018,Pinnacle Fixed Income Fund 03,Fixed Income,Asia-Pacific,USD,Bloomberg Global Agg,Sarah Chen,2015-07-24,0.41,0.0439,449845544.14,Active
+PAM0019,Pinnacle Fixed Income Fund 04,Fixed Income,Emerging Markets,USD,Bloomberg EM,Sarah Chen,2010-04-14,0.36,0.0986,483282684.83,Active
+PAM0020,Pinnacle Fixed Income Fund 05,Fixed Income,US,USD,ICE BofA Corp,Michael Torres,2014-03-09,0.46,0.0669,194618489.42,Active
+PAM0021,Pinnacle Fixed Income Fund 06,Fixed Income,Europe,USD,ICE BofA Corp,Lisa Nakamura,2018-06-13,0.5,0.078,950140577.24,Active
+PAM0022,Pinnacle Fixed Income Fund 07,Fixed Income,US,EUR,ICE BofA Corp,Lisa Nakamura,2017-05-03,0.59,0.0596,271891189.57,Active
+PAM0023,Pinnacle Fixed Income Fund 08,Fixed Income,Europe,EUR,Bloomberg EM,James Whitfield,2014-10-20,0.63,0.0639,1110051868.79,Active
+PAM0024,Pinnacle Fixed Income Fund 09,Fixed Income,Asia-Pacific,USD,Bloomberg US Agg,Michael Torres,2014-01-25,0.62,0.0926,1280908642.97,Active
+PAM0025,Pinnacle Fixed Income Fund 10,Fixed Income,US,EUR,Bloomberg EM,Sarah Chen,2012-06-13,0.35,0.0456,1040978462.15,Active
+PAM0026,Pinnacle Fixed Income Fund 11,Fixed Income,US,USD,ICE BofA Corp,Priya Patel,2010-08-14,0.54,0.0938,1365564377.17,Active
+PAM0027,Pinnacle Fixed Income Fund 12,Fixed Income,Europe,USD,Bloomberg EM,James Whitfield,2017-04-14,0.61,0.0764,1202831986.91,Active
+PAM0028,Pinnacle Multi-Asset Fund 01,Multi-Asset,US,GBP,MSCI ACWI,Michael Torres,2018-09-25,0.79,0.1159,191324388.58,Closed
+PAM0029,Pinnacle Multi-Asset Fund 02,Multi-Asset,US,GBP,CPI+3%,Priya Patel,2014-08-12,0.86,0.1255,258332727.41,Active
+PAM0030,Pinnacle Multi-Asset Fund 03,Multi-Asset,Emerging Markets,USD,MSCI ACWI,Priya Patel,2016-02-21,0.77,0.108,430944222.75,Active
+PAM0031,Pinnacle Multi-Asset Fund 04,Multi-Asset,Emerging Markets,EUR,60/40 Blend,Priya Patel,2014-11-19,0.83,0.1415,702031653.7,Active
+PAM0032,Pinnacle Multi-Asset Fund 05,Multi-Asset,Emerging Markets,GBP,MSCI ACWI,Priya Patel,2012-12-18,0.9,0.1562,995095459.72,Active
+PAM0033,Pinnacle Multi-Asset Fund 06,Multi-Asset,Europe,EUR,60/40 Blend,James Whitfield,2017-05-05,0.72,0.1108,597488470.15,Active
+PAM0034,Pinnacle Multi-Asset Fund 07,Multi-Asset,Global,USD,MSCI ACWI,Michael Torres,2018-08-27,0.97,0.0856,385229804.64,Active
+PAM0035,Pinnacle Multi-Asset Fund 08,Multi-Asset,Global,USD,MSCI ACWI,Michael Torres,2014-05-21,0.73,0.1479,704029165.14,Active
+PAM0036,Pinnacle Multi-Asset Fund 09,Multi-Asset,Emerging Markets,USD,CPI+3%,Michael Torres,2010-06-27,0.92,0.1494,738019897.22,Active
+PAM0037,Pinnacle Multi-Asset Fund 10,Multi-Asset,Emerging Markets,EUR,60/40 Blend,James Whitfield,2018-11-27,0.95,0.0822,560208158.97,Active
+PAM0038,Pinnacle Alternative Fund 01,Alternative,Europe,USD,HFRI Macro,Lisa Nakamura,2013-07-29,1.84,0.2791,247313355.36,Active
+PAM0039,Pinnacle Alternative Fund 02,Alternative,Europe,EUR,HFRI Fund Weighted,Sarah Chen,2016-01-20,1.83,0.1907,67475630.49,Closed
+PAM0040,Pinnacle Alternative Fund 03,Alternative,Emerging Markets,EUR,HFRI Macro,Priya Patel,2016-11-19,1.64,0.2589,255769322.73,Closed
+PAM0041,Pinnacle Alternative Fund 04,Alternative,Europe,USD,Credit Suisse HF,Priya Patel,2014-05-14,1.44,0.1618,282335156.74,Active
+PAM0042,Pinnacle Alternative Fund 05,Alternative,US,EUR,HFRI Fund Weighted,Sarah Chen,2011-03-26,1.17,0.1735,483191786.61,Active
+PAM0043,Pinnacle Alternative Fund 06,Alternative,US,GBP,HFRI Fund Weighted,Sarah Chen,2017-06-21,1.95,0.2607,297151999.12,Active
+PAM0044,Pinnacle Alternative Fund 07,Alternative,Europe,EUR,HFRI Macro,Priya Patel,2012-09-20,1.76,0.1522,325274335.81,Active
+PAM0045,Pinnacle Alternative Fund 08,Alternative,Asia-Pacific,GBP,HFRI Macro,Michael Torres,2016-03-29,1.49,0.221,70701188.91,Active
+PAM0046,Pinnacle Money Market Fund 01,Money Market,Global,USD,3M T-Bill,Lisa Nakamura,2013-05-02,0.23,0.0152,2452332421.57,Active
+PAM0047,Pinnacle Money Market Fund 02,Money Market,US,GBP,Fed Funds Rate,James Whitfield,2014-07-15,0.19,0.0289,4700463386.36,Active
+PAM0048,Pinnacle Money Market Fund 03,Money Market,Europe,EUR,3M T-Bill,Priya Patel,2012-12-16,0.2,0.0192,4402395201.0,Active
+PAM0049,Pinnacle Money Market Fund 04,Money Market,Global,USD,Fed Funds Rate,Lisa Nakamura,2015-01-22,0.13,0.0175,4736591639.49,Active
+PAM0050,Pinnacle Money Market Fund 05,Money Market,US,USD,Fed Funds Rate,Michael Torres,2011-05-29,0.2,0.0168,3282142479.52,Active
