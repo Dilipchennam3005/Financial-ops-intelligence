@@ -1,0 +1,18 @@
+{
+    "name": "LS_MySQL_PinnacleOps",
+    "type": "Microsoft.DataFactory/factories/linkedservices",
+    "properties": {
+        "type": "MySql",
+        "description": "Linked service to MySQL pinnacle_ops database",
+        "typeProperties": {
+            "connectionString": {
+                "type": "SecureString",
+                "value": "Server=localhost;Port=3306;Database=pinnacle_ops;Uid=root;Pwd=YOUR_MYSQL_PASSWORD"
+            }
+        },
+        "annotations": [
+            "PinnacleAssetManagement",
+            "MySQL"
+        ]
+    }
+}

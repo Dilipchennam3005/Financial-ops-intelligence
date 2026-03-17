@@ -1,0 +1,18 @@
+{
+    "name": "LS_AzureBlobStorage",
+    "type": "Microsoft.DataFactory/factories/linkedservices",
+    "properties": {
+        "type": "AzureBlobStorage",
+        "description": "Linked service to Azure Blob Storage for raw fund data ingestion",
+        "typeProperties": {
+            "connectionString": {
+                "type": "SecureString",
+                "value": "DefaultEndpointsProtocol=https;AccountName=pinnacleopsdata;AccountKey=YOUR_STORAGE_KEY;EndpointSuffix=core.windows.net"
+            }
+        },
+        "annotations": [
+            "PinnacleAssetManagement",
+            "RawDataIngestion"
+        ]
+    }
+}

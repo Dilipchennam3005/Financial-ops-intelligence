@@ -1,0 +1,176 @@
+{
+    "name": "PL_FundDataIngestion",
+    "type": "Microsoft.DataFactory/factories/pipelines",
+    "properties": {
+        "description": "Master pipeline for Pinnacle Asset Management fund data ingestion. Ingests NAV, cash flow, and trade data from Blob Storage into MySQL pinnacle_ops database.",
+        "activities": [
+            {
+                "name": "Copy_FundMaster",
+                "type": "Copy",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 2,
+                    "retryIntervalInSeconds": 30
+                },
+                "typeProperties": {
+                    "source": {
+                        "type": "DelimitedTextSource",
+                        "storeSettings": {
+                            "type": "AzureBlobStorageReadSettings",
+                            "recursive": false,
+                            "wildcardFileName": "fund_master.csv"
+                        },
+                        "formatSettings": {
+                            "type": "DelimitedTextReadSettings",
+                            "skipLineCount": 0
+                        }
+                    },
+                    "sink": {
+                        "type": "MySqlSink",
+                        "writeBatchSize": 1000,
+                        "preCopyScript": "TRUNCATE TABLE fund_master"
+                    },
+                    "enableStaging": false,
+                    "translator": {
+                        "type": "TabularTranslator",
+                        "typeConversion": true
+                    }
+                },
+                "inputs": [{ "referenceName": "DS_Blob_FundMaster", "type": "DatasetReference" }],
+                "outputs": [{ "referenceName": "DS_MySQL_FundMaster", "type": "DatasetReference" }]
+            },
+            {
+                "name": "Copy_NAVDaily",
+                "type": "Copy",
+                "dependsOn": [{ "activity": "Copy_FundMaster", "dependencyConditions": ["Succeeded"] }],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 2,
+                    "retryIntervalInSeconds": 30
+                },
+                "typeProperties": {
+                    "source": {
+                        "type": "DelimitedTextSource",
+                        "storeSettings": {
+                            "type": "AzureBlobStorageReadSettings",
+                            "recursive": false,
+                            "wildcardFileName": "nav_daily.csv"
+                        },
+                        "formatSettings": {
+                            "type": "DelimitedTextReadSettings",
+                            "skipLineCount": 0
+                        }
+                    },
+                    "sink": {
+                        "type": "MySqlSink",
+                        "writeBatchSize": 5000,
+                        "preCopyScript": "TRUNCATE TABLE nav_daily"
+                    },
+                    "enableStaging": false
+                },
+                "inputs": [{ "referenceName": "DS_Blob_NAVDaily", "type": "DatasetReference" }],
+                "outputs": [{ "referenceName": "DS_MySQL_NAVDaily", "type": "DatasetReference" }]
+            },
+            {
+                "name": "Copy_CashFlows",
+                "type": "Copy",
+                "dependsOn": [{ "activity": "Copy_FundMaster", "dependencyConditions": ["Succeeded"] }],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 2,
+                    "retryIntervalInSeconds": 30
+                },
+                "typeProperties": {
+                    "source": {
+                        "type": "DelimitedTextSource",
+                        "storeSettings": {
+                            "type": "AzureBlobStorageReadSettings",
+                            "recursive": false,
+                            "wildcardFileName": "cash_flows.csv"
+                        }
+                    },
+                    "sink": {
+                        "type": "MySqlSink",
+                        "writeBatchSize": 2000,
+                        "preCopyScript": "TRUNCATE TABLE cash_flows"
+                    },
+                    "enableStaging": false
+                },
+                "inputs": [{ "referenceName": "DS_Blob_CashFlows", "type": "DatasetReference" }],
+                "outputs": [{ "referenceName": "DS_MySQL_CashFlows", "type": "DatasetReference" }]
+            },
+            {
+                "name": "Copy_Trades",
+                "type": "Copy",
+                "dependsOn": [{ "activity": "Copy_FundMaster", "dependencyConditions": ["Succeeded"] }],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 2,
+                    "retryIntervalInSeconds": 30
+                },
+                "typeProperties": {
+                    "source": {
+                        "type": "DelimitedTextSource",
+                        "storeSettings": {
+                            "type": "AzureBlobStorageReadSettings",
+                            "recursive": false,
+                            "wildcardFileName": "trades.csv"
+                        }
+                    },
+                    "sink": {
+                        "type": "MySqlSink",
+                        "writeBatchSize": 2000,
+                        "preCopyScript": "TRUNCATE TABLE trades"
+                    },
+                    "enableStaging": false
+                },
+                "inputs": [{ "referenceName": "DS_Blob_Trades", "type": "DatasetReference" }],
+                "outputs": [{ "referenceName": "DS_MySQL_Trades", "type": "DatasetReference" }]
+            },
+            {
+                "name": "Validate_RowCounts",
+                "type": "Lookup",
+                "dependsOn": [
+                    { "activity": "Copy_NAVDaily",  "dependencyConditions": ["Succeeded"] },
+                    { "activity": "Copy_CashFlows", "dependencyConditions": ["Succeeded"] },
+                    { "activity": "Copy_Trades",    "dependencyConditions": ["Succeeded"] }
+                ],
+                "typeProperties": {
+                    "source": {
+                        "type": "MySqlSource",
+                        "query": "SELECT (SELECT COUNT(*) FROM fund_master) AS funds, (SELECT COUNT(*) FROM nav_daily) AS nav_records, (SELECT COUNT(*) FROM cash_flows) AS cash_flows, (SELECT COUNT(*) FROM trades) AS trades"
+                    },
+                    "dataset": { "referenceName": "DS_MySQL_FundMaster", "type": "DatasetReference" },
+                    "firstRowOnly": true
+                }
+            },
+            {
+                "name": "Log_PipelineRun",
+                "type": "SqlServerStoredProcedure",
+                "dependsOn": [{ "activity": "Validate_RowCounts", "dependencyConditions": ["Succeeded"] }],
+                "typeProperties": {
+                    "storedProcedureName": "sp_log_pipeline_run",
+                    "storedProcedureParameters": {
+                        "pipeline_name": { "value": "PL_FundDataIngestion", "type": "String" },
+                        "status":        { "value": "SUCCESS", "type": "String" },
+                        "run_date":      { "value": "@utcNow()", "type": "String" }
+                    }
+                },
+                "linkedServiceName": { "referenceName": "LS_MySQL_PinnacleOps", "type": "LinkedServiceReference" }
+            }
+        ],
+        "parameters": {
+            "runDate": {
+                "type": "String",
+                "defaultValue": "@utcNow('yyyy-MM-dd')"
+            },
+            "sourceContainer": {
+                "type": "String",
+                "defaultValue": "pinnacle-raw-data"
+            }
+        },
+        "annotations": ["PinnacleAssetManagement", "DataIngestion", "Daily"],
+        "concurrency": 1
+    }
+}

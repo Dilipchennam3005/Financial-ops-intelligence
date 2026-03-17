@@ -1,0 +1,91 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "defaultValue": "pinnacle-adf",
+            "metadata": { "description": "Azure Data Factory instance name" }
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "westus2",
+            "metadata": { "description": "Azure region for deployment" }
+        },
+        "storageAccountKey": {
+            "type": "securestring",
+            "metadata": { "description": "Azure Blob Storage account key" }
+        },
+        "mysqlPassword": {
+            "type": "securestring",
+            "metadata": { "description": "MySQL root password" }
+        }
+    },
+    "variables": {
+        "factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.DataFactory/factories",
+            "apiVersion": "2018-06-01",
+            "name": "[parameters('factoryName')]",
+            "location": "[parameters('location')]",
+            "identity": { "type": "SystemAssigned" },
+            "properties": {}
+        },
+        {
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "name": "[concat(parameters('factoryName'), '/LS_AzureBlobStorage')]",
+            "dependsOn": ["[variables('factoryId')]"],
+            "properties": {
+                "type": "AzureBlobStorage",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[concat('DefaultEndpointsProtocol=https;AccountName=pinnacleopsdata;AccountKey=', parameters('storageAccountKey'), ';EndpointSuffix=core.windows.net')]"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "name": "[concat(parameters('factoryName'), '/LS_MySQL_PinnacleOps')]",
+            "dependsOn": ["[variables('factoryId')]"],
+            "properties": {
+                "type": "MySql",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[concat('Server=localhost;Port=3306;Database=pinnacle_ops;Uid=root;Pwd=', parameters('mysqlPassword'))]"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2018-06-01",
+            "name": "[concat(parameters('factoryName'), '/PL_FundDataIngestion')]",
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/LS_AzureBlobStorage')]",
+                "[concat(variables('factoryId'), '/linkedServices/LS_MySQL_PinnacleOps')]"
+            ],
+            "properties": {
+                "description": "Daily fund data ingestion: Blob Storage → MySQL",
+                "concurrency": 1,
+                "annotations": ["PinnacleAssetManagement", "Production"]
+            }
+        }
+    ],
+    "outputs": {
+        "factoryName": {
+            "type": "string",
+            "value": "[parameters('factoryName')]"
+        },
+        "factoryId": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.DataFactory/factories', parameters('factoryName'))]"
+        }
+    }
+}

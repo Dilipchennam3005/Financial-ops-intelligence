@@ -1,0 +1,33 @@
+{
+    "name": "TR_DailyFundIngestion",
+    "type": "Microsoft.DataFactory/factories/triggers",
+    "properties": {
+        "description": "Daily trigger for fund data ingestion pipeline — runs at 6:00 AM UTC (10 PM PST) to ensure prior day data is available",
+        "type": "ScheduleTrigger",
+        "typeProperties": {
+            "recurrence": {
+                "frequency": "Day",
+                "interval": 1,
+                "startTime": "2024-01-01T06:00:00Z",
+                "timeZone": "UTC",
+                "schedule": {
+                    "hours": [6],
+                    "minutes": [0]
+                }
+            }
+        },
+        "pipelines": [
+            {
+                "pipelineReference": {
+                    "referenceName": "PL_FundDataIngestion",
+                    "type": "PipelineReference"
+                },
+                "parameters": {
+                    "runDate": "@trigger().scheduledTime",
+                    "sourceContainer": "pinnacle-raw-data"
+                }
+            }
+        ],
+        "annotations": ["Daily", "6AM_UTC", "Production"]
+    }
+}
